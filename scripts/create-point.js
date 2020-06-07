@@ -20,10 +20,10 @@ function getcities(event) {
 
 
     const ufvalue = event.target.value
-    const IndexOfSelectedState = event.target.selectedindex
+    const IndexOfSelectedState = event.target.selectedIndex
 
 
-    stateInput.value = event.target.options[IndexOfSelectedState]
+    stateInput.value = event.target.options[IndexOfSelectedState].text
 
 
 
@@ -41,7 +41,7 @@ function getcities(event) {
 
             for (const city of cities) {
 
-                cityselect.innerHTML += `<option value ="${city.id}" >${city.nome}</option>`
+                cityselect.innerHTML += `<option value ="${city.nome}" >${city.nome}</option>`
             }
 
             cityselect.disabled = false
@@ -53,3 +53,50 @@ function getcities(event) {
 document
     .querySelector("select[name=uf]")
     .addEventListener("change", getcities)
+
+
+
+
+// itens de coleta
+// pegar todos os li's
+
+const itemsTocollect = document.querySelectorAll(".items-grid li")
+
+for (const Item of itemsTocollect) {
+    Item.addEventListener("click", handleSelectedItem)
+}
+
+let selectedItems = [2, 3]
+
+function handleSelectedItem(event) {
+    const itemLi = event.target
+
+    // adicionar ou remover uma classe com js
+    itemLi.classList.toggle("selected")
+
+    const itemId = itemLi.dataset.id
+
+
+
+    // verificar se existem intens selecionados se sim
+    //pegar os intens selecionados
+    const alreadySelected = selectedItems.findIndex(item => {
+        const itemFound = item == itemId //isso sera true ou fale
+        return itemFound
+    })
+
+    console.log(alreadySelected)
+        // se já estiver selecionado, tirar de selecionado
+    if (alreadySelected >= 0) {
+        const filteredItem = selectedItems.filter(item => {
+            const itemIsDifferent = item != itemId
+            return itemIsDifferent
+
+        })
+        console.log(filteredItem)
+
+    }
+    // se não estiver selecionado adicionar a selecão
+    //atualizar o campo escondido com os dados selecionados
+
+}
